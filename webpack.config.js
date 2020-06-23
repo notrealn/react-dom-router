@@ -15,8 +15,14 @@ module.exports = {
   },
   devServer: {
     // equiv to express.static()
-    contentBase: [path.join(__dirname, "dist"), path.join(__dirname, "public")],
-    
+    contentBase: [path.join(__dirname, "dist"), path.join(__dirname, "public"), path.join(__dirname, "views"),],
+    // index: './views/index.html',
+    disableHostCheck: true,
+    // historyApiFallback: {
+    //   rewrites: [
+    //     { from: /^\/$/, to: './views/index.html' },
+    //   ],
+    // },
     compress: true,
     port: process.env.PORT
   },
