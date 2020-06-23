@@ -1,1 +1,1 @@
-alert('dumb');
+alert('read if dum');
