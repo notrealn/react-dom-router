@@ -1,1 +1,1 @@
-alert('read if dum');
+alert(process.env.PORT);
