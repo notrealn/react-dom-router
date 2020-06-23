@@ -7,7 +7,7 @@ const devMode = process.env.NODE_ENV !== "production";
 
 module.exports = {
   // entry is usually within src/
-  entry: "src/script.js",
+  entry: "./src/script.js",
   output: {
     // output is at dist/
     path: path.resolve(__dirname, "dist"),
@@ -16,23 +16,25 @@ module.exports = {
   devServer: {
     // equiv to express.static()
     contentBase: [path.join(__dirname, "dist"), path.join(__dirname, "public")],
+    
     compress: true,
     port: process.env.PORT
   },
   // extend webpack capability with plugins
   plugins: [
+    // basically this bundles css for each entrypoint
     new MiniCSSExtractPlugin({
       filename: devMode ? "[name].css" : "[name].[contenthash].css",
       chunkFilename: devMode ? "[name].css" : "[name].[contenthash].css"
-    })
+    }),
+    ...(devMode ? [] : [
+      new OptimizeCSSPlugin()
+    ])
   ],
   // this part tells webpack how to transform your code
   module: {
     rules: [
       {
-        // bruh wtf did u paste this
-        // yee
-        // just boilerplate code
         test: /\.(jp(e?)g|png|gif|mp3|ttf|eot|woff)$/i,
         loader: "file-loader",
         options: {

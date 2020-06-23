@@ -1,13 +1,9 @@
 {
   "version": "0.0.1",
-  "description": "A simple Node app built on Express, instantly up and running.",
+  "description": "webpack is garbage whyyyyyyyyyyyyy.",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
-  },
-  "dependencies": {
-    "express": "^4.17.1",
-    "webpack": "^4.43.0"
+    "start": "./node_modules/.bin/webpack-dev-server --host 0.0.0.0 --open"
   },
   "engines": {
     "node": "12.x"
@@ -21,7 +17,7 @@
     "glitch",
     "express"
   ],
-  "devDependencies": {
+  "dependencies": {
     "@babel/core": "^7.10.2",
     "@babel/plugin-proposal-class-properties": "^7.10.1",
     "@babel/plugin-proposal-object-rest-spread": "^7.10.1",
