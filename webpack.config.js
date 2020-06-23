@@ -1,57 +1,38 @@
 const path = require("path");
 
-// module.exports = {
-//   entry: "/public/script.js",
-//   output: {
-//     path: path.resolve(__dirname, "dist"),
-//     filename: "[name].js"
-//   },
-//   devServer: {
-//     contentBase: path.join(__dirname, "dist"),
-//     compress: true,
-//     port: process.env.PORT
-//   }
-// };
-
 module.exports = {
-  mode: "development",
-  devServer: {
-    contentBase: path.join(__dirname, "public"),
-    port: 8080,
-    host: `localhost`
-  },
-  entry: {
-    app: ["./src_client/index.js"]
-  },
+  // entry is usually within src/
+  entry: "src/script.js",
   output: {
-    path: path.join(__dirname, "dist"),
-    publicPath: "/js/",
-    filename: `[name].js`
+    // output is at dist/
+    path: path.resolve(__dirname, "dist"),
+    // name is main
+    filename: "[name].js"
   },
+  devServer: {
+    // equiv to express.static()
+    contentBase: [path.join(__dirname, "dist"), path.join(__dirname, "public")],
+    // use gzip
+    compress: true,
+    
+    port: process.env.PORT
+  },
+  // this part tells webpack how to transform your code
   module: {
     rules: [
       {
-        test: /\.js$/,
-        exclude: /(node_modules|bower_components)/,
-        use: [
-          {
-            loader: "babel-loader",
-            options: {
-              presets: [
-                [
-                  "@babel/preset-env",
-                  {
-                    modules: "false",
-                    useBuiltIns: "usage",
-                    targets: "> 0.25%, not dead",
-                    corejs: 3
-                  }
-                ]
-              ]
-            }
-          }
-        ]
-      }
-    ]
+        // use regex on file name
+        test: /\.jsx?$/i,
+        // babel is what you will usually use for js
+        use: 'babel-loader',
+      },
+      {// eveyrone love sregex
+        test: /\.s?css%/i,
+        
+      },
+    ],
   }
+ 
 };
+
+// use ts-loader + babel-laoder
