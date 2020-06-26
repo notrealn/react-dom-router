@@ -3,16 +3,18 @@ import { Route, BrowserRouter, Switch, useLocation, NavLink } from 'react-router
 import { renderApp } from '../src/util';
 import { Home } from './home/home';
 
+import './index.scss';
+
 class App extends React.Component {
   render() {
     const location = useLocation();
 
     return (
       <>
-        <nav title="Monument Platformer">
-          <NavLink exact to="/">root</NavLink>
-          <NavLink to="/page2">/page2</NavLink>
-          <NavLink to="/page3">/page3</NavLink>
+        <nav>
+          <NavLink exact to="/"><button>root</button></NavLink>
+          <NavLink to="/page2"><button>/page2</button></NavLink>
+          <NavLink to="/page3"><button>/page3</button></NavLink>
         </nav>
         <main>
           <Switch location={location}>

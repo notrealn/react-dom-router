@@ -1,4 +1,5 @@
 import * as autoprefixer from 'autoprefixer';
+import * as HTMLWebpackPlugin from 'html-webpack-plugin';
 import * as MiniCSSExtractPlugin from 'mini-css-extract-plugin';
 import * as OptimizeCSSPlugin from 'optimize-css-assets-webpack-plugin';
 import * as path from 'path';
@@ -22,14 +23,14 @@ export default <Configuration>{
     contentBase: [
       path.join(__dirname, 'dist'),
       path.join(__dirname, 'public'),
-      path.join(__dirname, 'views'),
     ],
     disableHostCheck: true,
-    // historyApiFallback: {
-    //   rewrites: [
-    //     { from: /^\/$/, to: './views/index.html' },
-    //   ],
-    // },
+    historyApiFallback: {
+      rewrites: [
+        { from: /^.*$/, to: '/views/index.html' },
+      ],
+      index: '/views/index.html',
+    },
     compress: true,
     port: process.env.PORT,
   },
@@ -41,6 +42,30 @@ export default <Configuration>{
       chunkFilename: devMode ? '[name].css' : '[name].[contenthash].css',
     }),
     ...(devMode ? [] : [new OptimizeCSSPlugin()]),
+    ...((pages: {
+      [chunk: string]: HTMLWebpackPlugin.Options & {
+        preBody?: string;
+        postBody?: string;
+        preHead?: string;
+        postHead?: string;
+      };
+    }) => {
+      const output: Array<HTMLWebpackPlugin> = [];
+      for (const [chunk, options] of Object.entries(pages))
+        output.push(
+          new HTMLWebpackPlugin({
+            inject: false,
+            chunks: [chunk],
+            minify: 'auto',
+            template: './src/template.ejs',
+            ...options,
+          })
+        );
+
+      return output;
+    })({
+      main: { title: 'website!!!', filename: 'views/index.html' },
+    }),
   ],
   resolve: {
     extensions: ['.ts', '.tsx', '.js'],
