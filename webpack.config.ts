@@ -11,7 +11,7 @@ export default <Configuration>{
   mode: devMode ? 'development' : 'production',
   devtool: devMode ? 'inline-source-map' : 'source-map',
   // entry is usually within src/
-  entry: './src/script.tsx',
+  entry: './src/index.tsx',
   output: {
     // output is at dist/
     path: path.resolve(__dirname, 'dist'),
