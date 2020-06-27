@@ -1,10 +1,13 @@
 const express = require("express");
 const app = express();
+const dotenv = require('dotenv');
 
-app.use(express.static("src"));
+dotenv.config();
 
-app.get("/", (request, response) => {
-  response.sendFile(__dirname + "/views/index.html");
+app.use(express.static("dist"));
+
+app.get("/", (req, res) => {
+  res.sendFile(__dirname + "dist/views/index.html");
 });
 
 // listen for requests :)
