@@ -1,4 +1,4 @@
-import * as ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom';
 
 export const renderApp = (component: JSX.Element) => {
   const render = () => {
